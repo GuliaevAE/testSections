@@ -73,6 +73,7 @@ export default {
   },
 
   methods: {
+    
     saveSect1Data() {
       this.store.changeSection1Data({
         SectionPosition: this.SectionPosition,

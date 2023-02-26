@@ -34,7 +34,7 @@ export default {
   methods: {
     filterForFilmsArray(e) {
       this.filteredFilmsArray = this.originalFilmsArray.filter(
-        x => x.title.toLowerCase().indexOf(e)!==-1
+        x => x.title.toLowerCase().indexOf(e.toLowerCase())!==-1
       );
     },
     fetchFilms() {

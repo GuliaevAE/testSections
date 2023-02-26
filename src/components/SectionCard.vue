@@ -1,5 +1,5 @@
 <template>
-  <div class="card"  @click="c">
+  <div class="card" >
     <div v-if="!changeSwitcher" class="card_text">
       <span class="card_header">{{data.header}}</span>
       <div class="card_content">{{`${$props.data.content}`}}</div>
@@ -54,9 +54,7 @@ export default {
   },
 
   methods: {
-    c(){
-console.log(this.data.icon)
-    },
+   
     saveNewData() {
       this.store.changeSectionCard({
         header: this.newHeader,

@@ -46,12 +46,10 @@ export default {
   methods: {
     SectionUp(e) {
       this.mouseUp = e.currentTarget.id
-      console.log('up', e.currentTarget.id);
       this.store.changeSectioPosition({mouseDown:this.mouseDown, mouseUp:this.mouseUp})
     },
     SectionDown(e){
       this.mouseDown = e.currentTarget.id
-      console.log('down',e.currentTarget.id);
     },
     addSection(e) {
       this.store.addSection(e);
