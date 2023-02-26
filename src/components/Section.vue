@@ -187,4 +187,10 @@ export default {
     }
   }
 }
+
+@media (max-width: 600px) {
+  .section{
+    width: 100% !important;
+  }
+}
 </style>
