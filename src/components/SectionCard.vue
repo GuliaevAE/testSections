@@ -1,24 +1,33 @@
 <template>
-  <div class="card" :id="cardCosition">
+  <div class="card"  @click="c">
     <div v-if="!changeSwitcher" class="card_text">
-      <span class="card_header">{{header}}</span>
-      <span class="card_content">{{content}}</span>
+      <span class="card_header">{{data.header}}</span>
+      <div class="card_content">{{`${$props.data.content}`}}</div>
+      <div class="card_icon" v-if="cardIcon!=='none'">
+        <Icon :icon="data.icon" color="white" height="30" />
+      </div>
     </div>
     <div v-else class="card_otions">
+      <label for="iconChanger">Icon</label>
+      <select id="iconChanger" v-model="cardIcon">
+        <option value="mdi:cat">cat</option>
+        <option value="mdi:dog">dog</option>
+        <option value="none">none</option>
+      </select>
       <label for="header">Header</label>
       <input id="header" type="text" v-model="newHeader" />
       <label for="content">Content</label>
       <textarea id="content" type="text" v-model="newContent" />
     </div>
 
-    <div class="card_buttons" :id="cardCosition">
+    <div class="card_buttons" >
       <div v-if="!changeSwitcher" @click="changeSwitcher=!changeSwitcher">
         <Icon class="section_buttons_item" icon="material-symbols:settings-outline-sharp" />
       </div>
       <div v-else @click="saveNewData">
         <Icon icon="material-symbols:save" color="white" />
       </div>
-      <div @click="$emit('delasd', $props.position)">
+      <div @click="deleteSectionCard">
         <Icon icon="ic:baseline-delete" color="white" />
       </div>
     </div>
@@ -27,32 +36,43 @@
 
 <script>
 import { Icon } from "@iconify/vue2";
+import { useCounterStore } from "@/store/store";
 export default {
   name: "SectionCard",
-  props: ["data", "position"],
+  props: ["data", "SectionCardPosition", "SectionPosition"],
   components: {
     Icon
   },
   data(props) {
     return {
-      header: props.data.header,
-      content: props.data.content,
-      cardCosition: props.position,
+      store: useCounterStore(),
+      cardIcon: props.data.icon,
       changeSwitcher: false,
-      newHeader: "Header",
-      newContent: "Content"
+      newHeader: props.data.header,
+      newContent: props.data.content
     };
   },
+
   methods: {
+    c(){
+console.log(this.data.icon)
+    },
     saveNewData() {
-      this.$emit("saveSectionCard", {
-        position: this.cardCosition,
+      this.store.changeSectionCard({
         header: this.newHeader,
-        content: this.newContent
+        content: this.newContent,
+        SectionCardPosition: this.SectionCardPosition,
+        SectionPosition: this.SectionPosition,
+        cardIcon: this.cardIcon
       });
-     this.newHeader = 'Header' 
-     this.newContent = 'Content'
-     this.changeSwitcher=false
+
+      this.changeSwitcher = false;
+    },
+    deleteSectionCard() {
+      this.store.deleteSectionCard({
+        SectionCardPosition: this.SectionCardPosition,
+        SectionPosition: this.SectionPosition
+      });
     },
     punchOnButton(e) {
       e.currentTarget.animate(
@@ -87,28 +107,51 @@ export default {
   span {
     display: block;
   }
+
+  .card_icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
   .card_otions {
     padding: 0 10px;
     box-sizing: border-box;
     width: 100%;
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 10px;
+      padding: 3px;
+    }
+    &::-webkit-scrollbar-track {
+      background: black;
+      border-radius: 15px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: grey;
+      border: 2px solid black;
+      border-radius: 15px;
+    }
     input {
       margin-bottom: 5px;
-      padding: 5px;
     }
     input,
-    textarea {
+    textarea,
+    select {
+        box-sizing: border-box;
       width: 95%;
+      padding: 5px;
       border-radius: 15px;
       background: rgb(48, 48, 48);
       color: white;
       border: 1px solid black;
+      margin-bottom: 5px;
     }
     textarea {
-      height: 100%;
+      min-height: 50%;
       resize: none;
-      padding: 5px;
+
       &::-webkit-scrollbar {
         width: 0;
       }

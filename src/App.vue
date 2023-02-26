@@ -2,19 +2,28 @@
   <div id="app">
     <div class="conteiner">
       <div class="conteiner_addButton">
-        <div class="conteiner_addButton_item" @click="punchOnButton($event,addSection('sect1'))">1</div>
-        <div class="conteiner_addButton_item" @click="punchOnButton($event,addSection('sect2'))">2</div>
+        <div class="conteiner_addButton_item" @click="punchOnButton($event,'sect1')">1</div>
+        <div class="conteiner_addButton_item" @click="punchOnButton($event,'sect2')">2</div>
+        <div class="conteiner_addButton_item" @click="punchOnButton($event,'sect3')">3</div>
       </div>
       <div class="conteiner_allsections">
-        <Section1 v-for="(item,k) in sectionArray" :key="item+k" :type="item" />
+        <Section1
+          v-for="(item,k) in store.getAllSections"
+          :SectionUp="SectionUp"
+          :SectionDown="SectionDown"
+          :key="item+k"
+          :type="item"
+          :SectionPosition="k"
+          :id="k"
+        />
       </div>
-    </div> 
+    </div>
   </div>
 </template>
 
 <script>
-import Section1 from "./components/Section1.vue";
-
+import Section1 from "./components/Section.vue";
+import { useCounterStore } from "@/store/store";
 export default {
   name: "App",
   components: {
@@ -22,18 +31,38 @@ export default {
   },
   data() {
     return {
-      sectionArray: ["sect1", "sect2", "sect2", "sect3"]
+      store: useCounterStore(),
+      mouseDown:'' ,
+      mouseUp:''
     };
   },
+  mounted(){
+    let allSections = localStorage.getItem('allSections');
+    if(allSections){
+      this.store.setallSections(JSON.parse(allSections))
+    }
+
+  },
   methods: {
-    addSection(e) {
-      this.sectionArray.push(e);
+    SectionUp(e) {
+      this.mouseUp = e.currentTarget.id
+      console.log('up', e.currentTarget.id);
+      this.store.changeSectioPosition({mouseDown:this.mouseDown, mouseUp:this.mouseUp})
     },
-    punchOnButton(e, func) {
-      console.log(e);
+    SectionDown(e){
+      this.mouseDown = e.currentTarget.id
+      console.log('down',e.currentTarget.id);
+    },
+    addSection(e) {
+      this.store.addSection(e);
+    },
+    punchOnButton(e, tag) {
       e.target.animate(
         [
-          { transform: "translateY(8px)", boxShadow: "none" },
+          {
+            transform: "translateY(8px)",
+            boxShadow: "0 0 0 1px rgb(125, 125, 125), 0 0px black"
+          },
           {
             transform: "none",
             boxShadow: "0 0 0 1px rgb(125, 125, 125), 0 8px black"
@@ -41,7 +70,7 @@ export default {
         ],
         { duration: 1000, easing: "ease-out" }
       );
-      func();
+      this.addSection(tag);
     }
   }
 };
