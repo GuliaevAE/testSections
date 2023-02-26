@@ -95,7 +95,7 @@ export default {
   display: flex;
   box-sizing: border-box;
   justify-content: space-between;
-  background: rgb(59, 59, 59);
+  background: rgb(78, 78, 78);
   border: 1px solid rgb(147, 147, 147);
   box-shadow: 0 5px black;
   border-radius: 15px;
@@ -173,5 +173,10 @@ export default {
     box-sizing: border-box;
     padding: 0 5px;
   }
+}
+@media (max-width: 600px) {
+    .card{
+        min-width: 100%;
+    }
 }
 </style>

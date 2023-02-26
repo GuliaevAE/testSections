@@ -100,7 +100,7 @@ export default {
 
   border: 1px solid rgb(14, 14, 14);
   border-radius: 15px;
-  background: rgb(59, 59, 59);
+  background: rgb(79, 79, 79);
 
   display: flex;
   flex-direction: column;

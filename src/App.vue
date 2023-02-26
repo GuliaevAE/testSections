@@ -106,6 +106,7 @@ export default {
   .conteiner_allsections {
     height: 100%;
     width: 100%;
+    box-sizing: border-box;
     display: flex;
     column-gap: 10px;
     row-gap: 15px;
@@ -141,6 +142,14 @@ export default {
       border-radius: 50%;
       box-shadow: 0 0 0 1px rgb(125, 125, 125), 0 8px black;
     }
+  }
+}
+@media (max-width: 600px) {
+  .conteiner{
+    flex-direction:column ;
+  }
+  .conteiner_addButton{
+    flex-direction:row !important;
   }
 }
 </style>
