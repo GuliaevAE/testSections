@@ -99,7 +99,7 @@ export default {
   background: grey;
 
   border-radius: 15px;
-  box-shadow: 0 12px 0 0 black;
+  box-shadow:1px 1px white ,0 0 0 1px black,  0 12px 0 0 black;
   padding: 30px 30px;
   padding-right: 10px;
 
@@ -115,6 +115,7 @@ export default {
     overflow-y: scroll;
     padding-right: 10px;
     padding-bottom: 10px;
+    padding: 10px;
     &::-webkit-scrollbar {
       width: 10px;
       padding: 3px;

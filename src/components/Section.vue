@@ -98,10 +98,10 @@ export default {
   height: 45%;
   width: 32%;
 
-  border: 1px solid rgb(14, 14, 14);
+ 
   border-radius: 15px;
   background: rgb(79, 79, 79);
-
+  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -110,8 +110,9 @@ export default {
   padding: 25px 5px;
   padding-bottom: 5px;
   box-shadow: 0 7px black, 0 7px 1px rgb(255, 255, 255);
+  box-shadow:1px 1px white ,0 0 0 1px black,  0 7px 0 0 black;
   &.long {
-    width: 64%;
+    width: 65%;
   }
   .section_sect1 {
     height: 100%;

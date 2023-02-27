@@ -1,5 +1,5 @@
 <template>
-  <div class="card" >
+  <div class="card">
     <div v-if="!changeSwitcher" class="card_text">
       <span class="card_header">{{data.header}}</span>
       <div class="card_content">{{`${$props.data.content}`}}</div>
@@ -20,7 +20,7 @@
       <textarea id="content" type="text" v-model="newContent" />
     </div>
 
-    <div class="card_buttons" >
+    <div class="card_buttons">
       <div v-if="!changeSwitcher" @click="changeSwitcher=!changeSwitcher">
         <Icon class="section_buttons_item" icon="material-symbols:settings-outline-sharp" />
       </div>
@@ -54,7 +54,6 @@ export default {
   },
 
   methods: {
-   
     saveNewData() {
       this.store.changeSectionCard({
         header: this.newHeader,
@@ -95,7 +94,7 @@ export default {
   display: flex;
   box-sizing: border-box;
   justify-content: space-between;
-  background: rgb(78, 78, 78);
+  background: rgb(59, 59, 59);
   border: 1px solid rgb(147, 147, 147);
   box-shadow: 0 5px black;
   border-radius: 15px;
@@ -137,7 +136,10 @@ export default {
     input,
     textarea,
     select {
-        box-sizing: border-box;
+      
+    
+      
+      box-sizing: border-box;
       width: 95%;
       padding: 5px;
       border-radius: 15px;
@@ -175,8 +177,8 @@ export default {
   }
 }
 @media (max-width: 600px) {
-    .card{
-        min-width: 100%;
-    }
+  .card {
+    min-width: 100%;
+  }
 }
 </style>
